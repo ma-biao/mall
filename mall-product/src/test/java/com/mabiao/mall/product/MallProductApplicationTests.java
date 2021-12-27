@@ -2,7 +2,8 @@ package com.mabiao.mall.product;
 
 import com.mabiao.mall.product.entity.BrandEntity;
 import com.mabiao.mall.product.service.BrandService;
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
