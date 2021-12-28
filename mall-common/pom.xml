@@ -55,9 +55,17 @@
             <scope>provided</scope>
         </dependency>
 
+        <!--    Nacos服务注册/发现    -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <version>2.1.4.RELEASE</version>
+        </dependency>
+
+        <!--    Nacos配置中心    -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
             <version>2.1.4.RELEASE</version>
         </dependency>
 
