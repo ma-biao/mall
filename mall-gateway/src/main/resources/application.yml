@@ -11,6 +11,14 @@ spring:
           predicates:
             - Query=url,qq
 
+        # 精确路由放在高优先级，模糊路由放在低优先级
+        - id: product_route
+          uri: lb://mall-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*),/$\{segment}
+
         - id: admin_route
           uri: lb://renren-fast  # lb负载均衡
           predicates:
