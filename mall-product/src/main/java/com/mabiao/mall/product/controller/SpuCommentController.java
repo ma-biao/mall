@@ -21,7 +21,7 @@ import com.mabiao.common.utils.R;
 /**
  * 商品评价
  *
- * @author chenshun
+ * @author mabiao
  * @email mabiao0408@gmail.com
  * @date 2021-12-23 16:56:56
  */

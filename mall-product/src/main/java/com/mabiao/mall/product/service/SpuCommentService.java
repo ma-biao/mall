@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * 商品评价
  *
- * @author chenshun
+ * @author mabiao
  * @email mabiao0408@gmail.com
  * @date 2021-12-23 14:33:22
  */
