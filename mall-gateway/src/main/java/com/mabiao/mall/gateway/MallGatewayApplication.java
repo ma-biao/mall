@@ -1,5 +1,7 @@
 package com.mabiao.mall.gateway;
 
+import com.alibaba.alicloud.context.oss.OssContextAutoConfiguration;
+import com.alibaba.alicloud.oss.OssAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -11,7 +13,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 
 @EnableDiscoveryClient
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, OssContextAutoConfiguration.class})
 public class MallGatewayApplication {
 
     public static void main(String[] args) {
