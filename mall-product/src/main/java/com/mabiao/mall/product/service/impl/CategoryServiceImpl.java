@@ -1,7 +1,10 @@
 package com.mabiao.mall.product.service.impl;
 
+import com.mabiao.mall.product.service.CategoryBrandRelationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -16,10 +19,14 @@ import com.mabiao.common.utils.Query;
 import com.mabiao.mall.product.dao.CategoryDao;
 import com.mabiao.mall.product.entity.CategoryEntity;
 import com.mabiao.mall.product.service.CategoryService;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
+
+    @Autowired
+    CategoryBrandRelationService categoryBrandRelationService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -56,6 +63,36 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
         // 逻辑删除
         baseMapper.deleteBatchIds(asList);
+    }
+
+    @Override
+    public Long[] findCatelogPath(Long catelogId) {
+        List<Long> paths = new ArrayList<>();
+        findParentPath(catelogId, paths);
+
+        Collections.reverse(paths);
+
+        return paths.toArray(new Long[paths.size()]);
+    }
+
+    /**
+     * 级联更新所有关联的数据
+     * @param category
+     */
+    @Transactional
+    @Override
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
+    }
+
+    private void findParentPath(Long catelogId, List<Long> paths){
+        // 1. 收集当前节点id
+        paths.add(catelogId);
+        CategoryEntity byId = this.getById(catelogId);
+        if (byId.getParentCid() != 0){
+            findParentPath(byId.getParentCid(), paths);
+        }
     }
 
     // 递归查找所有菜单的子菜单

@@ -5,8 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.mabiao.common.valid.AddGroup;
+import com.mabiao.common.valid.UpdateGroup;
+import com.mabiao.common.valid.UpdateStatusGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,23 +66,23 @@ public class BrandController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:brand:save")
-    public R save(@Valid @RequestBody BrandEntity brand, BindingResult bindingResult){
-		if (bindingResult.hasErrors()){
-            Map<String,String> map=new HashMap<>();
-            // 1.获取校验的错误结果
-            bindingResult.getFieldErrors().forEach((item) -> {
-                // 获取发生错误时的message
-                String message = item.getDefaultMessage();
-                // 获取发生错误的属性名
-                String field = item.getField();
-                map.put(field,message);
-            });
-            return R.error(400,"提交的数据不合法").put("data",map);
-        } else {
-            brandService.save(brand);
-        }
+    public R save(@Validated({AddGroup.class}) @RequestBody BrandEntity brand/*,  BindingResult bindingResult**/){
+//		if (bindingResult.hasErrors()){
+//            Map<String,String> map=new HashMap<>();
+//            // 1.获取校验的错误结果
+//            bindingResult.getFieldErrors().forEach((item) -> {
+//                // 获取发生错误时的message
+//                String message = item.getDefaultMessage();
+//                // 获取发生错误的属性名
+//                String field = item.getField();
+//                map.put(field,message);
+//            });
+//            return R.error(400,"提交的数据不合法").put("data",map);
+//        } else {
+//            brandService.save(brand);
+//        }
 
-
+        brandService.save(brand);
         return R.ok();
     }
 
@@ -87,8 +91,19 @@ public class BrandController {
      */
     @RequestMapping("/update")
     //@RequiresPermissions("product:brand:update")
-    public R update(@RequestBody BrandEntity brand){
-		brandService.updateById(brand);
+    public R update(@Validated({UpdateGroup.class}) @RequestBody BrandEntity brand){
+            brandService.updateDetail(brand);
+
+        return R.ok();
+    }
+
+    /**
+     * 修改状态
+     */
+    @RequestMapping("/update/status")
+    //@RequiresPermissions("product:brand:update")
+    public R updateStatus(@Validated({UpdateStatusGroup.class}) @RequestBody BrandEntity brand){
+        brandService.updateById(brand);
 
         return R.ok();
     }
