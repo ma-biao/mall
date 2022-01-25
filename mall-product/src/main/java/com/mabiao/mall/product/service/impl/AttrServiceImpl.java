@@ -5,9 +5,7 @@ import com.mabiao.common.constant.ProductConstant;
 import com.mabiao.mall.product.dao.AttrAttrgroupRelationDao;
 import com.mabiao.mall.product.dao.AttrGroupDao;
 import com.mabiao.mall.product.dao.CategoryDao;
-import com.mabiao.mall.product.entity.AttrAttrgroupRelationEntity;
-import com.mabiao.mall.product.entity.AttrGroupEntity;
-import com.mabiao.mall.product.entity.CategoryEntity;
+import com.mabiao.mall.product.entity.*;
 import com.mabiao.mall.product.service.CategoryService;
 import com.mabiao.mall.product.vo.AttrGroupRelationVo;
 import com.mabiao.mall.product.vo.AttrRespVo;
@@ -29,7 +27,6 @@ import com.mabiao.common.utils.PageUtils;
 import com.mabiao.common.utils.Query;
 
 import com.mabiao.mall.product.dao.AttrDao;
-import com.mabiao.mall.product.entity.AttrEntity;
 import com.mabiao.mall.product.service.AttrService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -252,5 +249,6 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
         return pageUtils;
     }
+
 
 }

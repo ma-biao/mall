@@ -3,6 +3,7 @@ package com.mabiao.mall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mabiao.common.utils.PageUtils;
 import com.mabiao.mall.product.entity.AttrEntity;
+import com.mabiao.mall.product.entity.ProductAttrValueEntity;
 import com.mabiao.mall.product.vo.AttrGroupRelationVo;
 import com.mabiao.mall.product.vo.AttrRespVo;
 import com.mabiao.mall.product.vo.AttrVo;

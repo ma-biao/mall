@@ -1,9 +1,12 @@
 package com.mabiao.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.mabiao.mall.product.entity.ProductAttrValueEntity;
+import com.mabiao.mall.product.service.ProductAttrValueService;
 import com.mabiao.mall.product.vo.AttrRespVo;
 import com.mabiao.mall.product.vo.AttrVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import com.mabiao.mall.product.service.AttrService;
 import com.mabiao.common.utils.PageUtils;
 import com.mabiao.common.utils.R;
 
+import javax.websocket.server.PathParam;
 
 
 /**
@@ -29,12 +33,24 @@ public class AttrController {
     @Autowired
     private AttrService attrService;
 
+    @Autowired
+    ProductAttrValueService productAttrValueService;
+
     @GetMapping("/{attrtype}/list/{catelogId}")
     public R baseAttrList(@RequestParam Map<String, Object> params,
                           @PathVariable("catelogId") Long catelogId,
                           @PathVariable("attrtype") String attrtype){
         PageUtils page = attrService.queryBaseAttrPage(params, catelogId, attrtype);
         return R.ok().put("page", page);
+    }
+
+    /**
+     * 获取spu规格
+     */
+    @GetMapping("/base/listforspu/{spuId}")
+    public R baseAttrListForSpu(@PathVariable("spuId") Long spuId){
+        List<ProductAttrValueEntity> entities = productAttrValueService.baseAttrListForSpu(spuId);
+        return R.ok().put("data", entities);
     }
 
     /**
@@ -79,6 +95,18 @@ public class AttrController {
     //@RequiresPermissions("product:attr:update")
     public R update(@RequestBody AttrVo attr){
 		attrService.updateAttr(attr);
+
+        return R.ok();
+    }
+
+    /**
+     * 修改商品规格
+     */
+    @PostMapping("/update/{spuId}")
+    //@RequiresPermissions("product:attr:update")
+    public R updateSpuAttr(@PathParam("spuId") Long spuId,
+                           @RequestBody List<ProductAttrValueEntity> entities){
+        productAttrValueService.updateSpuAttr(spuId, entities);
 
         return R.ok();
     }
