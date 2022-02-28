@@ -1,15 +1,13 @@
 package com.mabiao.mall.ware.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.mabiao.mall.ware.vo.SkuHasStockVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.mabiao.mall.ware.entity.WareSkuEntity;
 import com.mabiao.mall.ware.service.WareSkuService;
@@ -42,6 +40,12 @@ public class WareSkuController {
         return R.ok().put("page", page);
     }
 
+    @PostMapping("/hasstock")
+    public R getSkuHasStock(@RequestBody List<Long> skuIds){
+        List<SkuHasStockVo> vos = wareSkuService.getSkusHasStock(skuIds);
+
+        return R.ok().setData(vos);
+    }
 
     /**
      * 信息
