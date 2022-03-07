@@ -12,6 +12,7 @@ import com.mabiao.mall.product.vo.AttrRespVo;
 import com.mabiao.mall.product.vo.AttrVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;

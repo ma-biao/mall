@@ -3,3 +3,5 @@ server:
 spring:
   application:
     name: mall-search
+  thymeleaf:
+    cache: false
