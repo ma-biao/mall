@@ -4,6 +4,7 @@ spring:
       discovery:
         server-addr: 10.141.19.123:8848
 
+
   application:
     name: mall-third-party
 
