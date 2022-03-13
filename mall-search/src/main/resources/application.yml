@@ -5,3 +5,8 @@ spring:
     name: mall-search
   thymeleaf:
     cache: false
+  redis:
+    host: 10.141.19.123
+    port: 6379
+  session:
+    store-type: redis

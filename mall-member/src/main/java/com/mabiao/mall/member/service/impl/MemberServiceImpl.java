@@ -152,7 +152,6 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
             //3、查询当前社交用户的社交账号信息（昵称、性别等）
             Map<String,String> query = new HashMap<>();
             query.put("access_token",socialUser.getAccess_token());
-            query.put("uid",socialUser.getUid());
             HttpResponse response = HttpUtils.doGet("https://gitee.com", "/api/v5/user", "get", new HashMap<String, String>(), query);
 
             if (response.getStatusLine().getStatusCode() == 200) {
@@ -164,10 +163,12 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
                 String profileImageUrl = jsonObject.getString("profile_image_url");
 
                 register.setNickname(name);
-                register.setGender("m".equals(gender)?1:0);
+                // register.setGender("m".equals(gender)?1:0);
+                register.setGender(0); // gitee用户信息没有性别属性
                 register.setHeader(profileImageUrl);
                 register.setCreateTime(new Date());
-                register.setSocialUid(socialUser.getUid());
+                // register.setSocialUid(socialUser.getUid());
+                register.setSocialUid(jsonObject.getString("id"));
                 register.setAccessToken(socialUser.getAccess_token());
                 register.setExpiresIn(socialUser.getExpires_in());
 
