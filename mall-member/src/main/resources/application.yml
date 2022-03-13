@@ -10,6 +10,9 @@ spring:
         server-addr: 10.141.19.123:8848
   application:
     name: mall-member
+  redis:
+    host: 10.141.19.123
+    port: 6379
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
   global-config:

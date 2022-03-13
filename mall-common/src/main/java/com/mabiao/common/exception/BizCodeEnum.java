@@ -12,6 +12,7 @@ package com.mabiao.common.exception;
  *  12: 订单
  *  13: 购物车
  *  14: 物流
+ *  15: 用户
  */
 public enum BizCodeEnum {
 
