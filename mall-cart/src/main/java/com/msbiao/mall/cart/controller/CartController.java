@@ -23,7 +23,6 @@ public class CartController {
 
     /**
      * 获取当前用户的购物车商品项
-     * @return
      */
     @GetMapping(value = "/currentUserCartItems")
     @ResponseBody
@@ -44,7 +43,6 @@ public class CartController {
      * 没登录：按照cookie里面带来user-key来做
      * 第一次，如果没有临时用户，自动创建一个临时用户
      *
-     * @return
      */
     @GetMapping(value = "/cart.html")
     public String cartListPage(Model model) throws ExecutionException, InterruptedException {
@@ -61,7 +59,6 @@ public class CartController {
      * 添加商品到购物车
      * attributes.addFlashAttribute():将数据放在session中，可以在页面中取出，但是只能取一次
      * attributes.addAttribute():将数据放在url后面
-     * @return
      */
     @GetMapping(value = "/addCartItem")
     public String addCartItem(@RequestParam("skuId") Long skuId,
@@ -77,9 +74,6 @@ public class CartController {
 
     /**
      * 跳转到添加购物车成功页面
-     * @param skuId
-     * @param model
-     * @return
      */
     @GetMapping(value = "/addToCartSuccessPage.html")
     public String addToCartSuccessPage(@RequestParam("skuId") Long skuId,
@@ -93,9 +87,6 @@ public class CartController {
 
     /**
      * 商品是否选中
-     * @param skuId
-     * @param checked
-     * @return
      */
     @GetMapping(value = "/checkItem")
     public String checkItem(@RequestParam(value = "skuId") Long skuId,
@@ -110,9 +101,6 @@ public class CartController {
 
     /**
      * 改变商品数量
-     * @param skuId
-     * @param num
-     * @return
      */
     @GetMapping(value = "/countItem")
     public String countItem(@RequestParam(value = "skuId") Long skuId,
@@ -126,8 +114,6 @@ public class CartController {
 
     /**
      * 删除商品信息
-     * @param skuId
-     * @return
      */
     @GetMapping(value = "/deleteItem")
     public String deleteItem(@RequestParam("skuId") Integer skuId) {

@@ -148,7 +148,6 @@ public class CartServiceImpl implements CartService {
 
     /**
      * 获取到我们要操作的购物车
-     * @return
      */
     private BoundHashOperations<String, Object, Object> getCartOps() {
         //先得到当前用户信息
