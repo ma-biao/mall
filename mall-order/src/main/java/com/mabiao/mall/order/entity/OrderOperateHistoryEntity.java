@@ -9,10 +9,6 @@ import lombok.Data;
 
 /**
  * 订单操作历史记录
- * 
- * @author mabiao
- * @email mabiao0408@gmail.com
- * @date 2021-12-27 10:54:49
  */
 @Data
 @TableName("oms_order_operate_history")

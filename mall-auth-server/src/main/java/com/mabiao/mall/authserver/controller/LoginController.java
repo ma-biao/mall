@@ -3,7 +3,7 @@ package com.mabiao.mall.authserver.controller;
 import com.alibaba.fastjson.TypeReference;
 import com.mabiao.common.constant.AuthServerConstant;
 import com.mabiao.common.exception.BizCodeEnum;
-import com.mabiao.common.to.MemberResponseVo;
+import com.mabiao.common.vo.MemberResponseVo;
 import com.mabiao.common.utils.R;
 import com.mabiao.mall.authserver.feign.MemberFeignService;
 import com.mabiao.mall.authserver.feign.ThirdPartyFeignService;
@@ -117,7 +117,6 @@ public class LoginController {
                     attributes.addFlashAttribute("errors",errors);
                     return "redirect:http://auth.gulimall.com/reg.html";
                 }
-
 
             } else {
                 //效验出错回到注册页面

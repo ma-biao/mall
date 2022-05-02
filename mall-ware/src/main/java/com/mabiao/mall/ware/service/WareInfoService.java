@@ -3,6 +3,7 @@ package com.mabiao.mall.ware.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mabiao.common.utils.PageUtils;
 import com.mabiao.mall.ware.entity.WareInfoEntity;
+import com.mabiao.mall.ware.vo.FareVo;
 
 import java.util.Map;
 
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface WareInfoService extends IService<WareInfoEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    FareVo getFare(Long addrId);
 }
 

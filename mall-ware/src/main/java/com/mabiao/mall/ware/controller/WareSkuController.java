@@ -40,11 +40,22 @@ public class WareSkuController {
         return R.ok().put("page", page);
     }
 
-    @PostMapping("/hasstock")
+    /**
+     * 查询对应的sku是否有库存
+     */
+    @PostMapping("/hasStock")
     public R getSkuHasStock(@RequestBody List<Long> skuIds){
         List<SkuHasStockVo> vos = wareSkuService.getSkusHasStock(skuIds);
 
         return R.ok().setData(vos);
+    }
+
+    /**
+     * 测试feign远程调用方法
+     */
+    @RequestMapping("/hello")
+    public R hello(){
+        return R.ok().setData("feign is ok");
     }
 
     /**

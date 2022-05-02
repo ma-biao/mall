@@ -10,10 +10,6 @@ import lombok.Data;
 
 /**
  * 订单退货申请
- * 
- * @author mabiao
- * @email mabiao0408@gmail.com
- * @date 2021-12-27 10:54:49
  */
 @Data
 @TableName("oms_order_return_apply")

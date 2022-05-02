@@ -1,7 +1,7 @@
 package com.msbiao.mall.cart.interceptor;
 
 
-import com.mabiao.common.to.MemberResponseVo;
+import com.mabiao.common.vo.MemberResponseVo;
 import com.msbiao.mall.cart.to.UserInfoTo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -20,6 +20,11 @@ import static com.mabiao.common.constant.CartConstant.TEMP_USER_COOKIE_TIMEOUT;
 
 /**
  * 在执行目标方法之前，判断用户的登录状态.并封装传递给controller目标请求
+ *
+ * HandlerInterceptor:
+ * 1. preHandle：在业务处理器处理请求之前被调用。预处理，可以进行编码、安全控制、权限校验等处理；
+ * 2. postHandle：在业务处理器处理请求执行完成后，生成视图之前执行。后处理（调用了Service并返回ModelAndView，但未进行页面渲染），有机会修改ModelAndView ；
+ * 3. afterCompletion：在DispatcherServlet完全处理完请求后被调用，可用于清理资源等。返回处理（已经渲染了页面）；
  **/
 
 public class CartInterceptor implements HandlerInterceptor {

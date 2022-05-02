@@ -10,10 +10,6 @@ import lombok.Data;
 
 /**
  * 支付信息表
- * 
- * @author mabiao
- * @email mabiao0408@gmail.com
- * @date 2021-12-27 10:54:49
  */
 @Data
 @TableName("oms_payment_info")

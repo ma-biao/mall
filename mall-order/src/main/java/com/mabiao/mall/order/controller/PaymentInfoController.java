@@ -3,7 +3,6 @@ package com.mabiao.mall.order.controller;
 import java.util.Arrays;
 import java.util.Map;
 
-//import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,10 +19,6 @@ import com.mabiao.common.utils.R;
 
 /**
  * 支付信息表
- *
- * @author mabiao
- * @email mabiao0408@gmail.com
- * @date 2021-12-27 10:54:49
  */
 @RestController
 @RequestMapping("order/paymentinfo")
@@ -80,7 +75,6 @@ public class PaymentInfoController {
      * 删除
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions("order:paymentinfo:delete")
     public R delete(@RequestBody Long[] ids){
 		paymentInfoService.removeByIds(Arrays.asList(ids));
 

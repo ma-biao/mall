@@ -1,4 +1,4 @@
-package com.mabiao.common.to;
+package com.mabiao.common.vo;
 
 import lombok.Data;
 import lombok.ToString;
@@ -9,6 +9,7 @@ import java.util.Date;
 @ToString
 @Data
 public class MemberResponseVo implements Serializable {
+
     private static final long serialVersionUID = 5573669251256409786L;
 
     private Long id;

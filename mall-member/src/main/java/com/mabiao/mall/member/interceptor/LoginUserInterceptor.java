@@ -1,6 +1,6 @@
 package com.mabiao.mall.member.interceptor;
 
-import com.mabiao.common.to.MemberResponseVo;
+import com.mabiao.common.vo.MemberResponseVo;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.HandlerInterceptor;

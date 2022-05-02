@@ -2,7 +2,7 @@ package com.mabiao.mall.authserver.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.mabiao.common.to.MemberResponseVo;
+import com.mabiao.common.vo.MemberResponseVo;
 import com.mabiao.common.utils.HttpUtils;
 import com.mabiao.common.utils.R;
 import com.mabiao.mall.authserver.feign.MemberFeignService;
