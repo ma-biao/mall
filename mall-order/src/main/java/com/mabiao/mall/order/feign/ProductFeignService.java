@@ -13,6 +13,6 @@ public interface ProductFeignService {
      * 根据skuId查询spu的信息
      */
     @GetMapping(value = "/product/spuinfo/skuId/{skuId}")
-    public R getSpuInfoBySkuId(@PathVariable("skuId") Long skuId);
+    R getSpuInfoBySkuId(@PathVariable("skuId") Long skuId);
 
 }

@@ -1,5 +1,6 @@
 package com.mabiao.mall.product.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -42,7 +43,12 @@ public class SpuInfoEntity implements Serializable {
 	 */
 	private Long brandId;
 	/**
-	 * 
+	 * 品牌名
+	 */
+	@TableField(exist = false)
+	private String brandName;
+	/**
+	 * spu重量
 	 */
 	private BigDecimal weight;
 	/**

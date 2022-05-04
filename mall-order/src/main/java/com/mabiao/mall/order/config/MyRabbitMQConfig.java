@@ -13,7 +13,7 @@ import java.util.HashMap;
 @Configuration
 public class MyRabbitMQConfig {
 
-    /* 容器中的Queue、Exchange、Binding 会自动创建（在RabbitMQ）不存在的情况下 */
+    /* 容器中的Queue、Exchange、Binding 会自动创建（在RabbitMQ不存在的情况下) */
 
     /**
      * 死信队列
