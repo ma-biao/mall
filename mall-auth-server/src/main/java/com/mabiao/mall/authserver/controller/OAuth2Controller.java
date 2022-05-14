@@ -1,6 +1,7 @@
 package com.mabiao.mall.authserver.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.mabiao.common.vo.MemberResponseVo;
 import com.mabiao.common.utils.HttpUtils;
@@ -43,12 +44,22 @@ public class OAuth2Controller {
 
         //2、处理
         if (response.getStatusLine().getStatusCode() == 200) {
-            //获取到了access_token,转为通用社交登录对象
             String json = EntityUtils.toString(response.getEntity());
-            System.out.println("json: " + json);
-            //String json = JSON.toJSONString(response.getEntity());
-            SocialUser socialUser = JSON.parseObject(json, SocialUser.class);
+            JSONObject jsonObject = JSON.parseObject(json);
+            //获取到了access_token, 使用access_token查询用户信息
+            // 注意此处第一次查询返回的信息缺少uid信息，需要使用https://gitee.com/api/v5/user接口
+            // 查询用户详细信息确定uid，否则无法判断是否为新用户
+            Map<String,String> query = new HashMap<>();
+            query.put("access_token", jsonObject.getString("access_token"));
+            HttpResponse response2 = HttpUtils.doGet("https://gitee.com", "/api/v5/user", "get", new HashMap<String, String>(), query);
+            if (response2.getStatusLine().getStatusCode() != 200) {
+                System.out.println("登录状态码: " + response2.getStatusLine().getStatusCode());
+                return "redirect:http://auth.gulimall.com/login.html";
+            }
 
+            SocialUser socialUser = JSON.parseObject(json, SocialUser.class);
+            JSONObject jsonObject2 = JSON.parseObject(EntityUtils.toString(response2.getEntity()));
+            socialUser.setUid(jsonObject2.getString("id"));
             //知道了哪个社交用户
             //1）、当前用户如果是第一次进网站，自动注册进来（为当前社交用户生成一个会员信息，以后这个社交账号就对应指定的会员）
             //登录或者注册这个社交用户

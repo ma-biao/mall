@@ -122,8 +122,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             //每一个线程都来共享之前的请求数据
             RequestContextHolder.setRequestAttributes(requestAttributes);
 
-            //1、远程查询所有的收获地址列表
+            //1、远程查询所有的收货地址列表
             List<MemberAddressVo> address = memberFeignService.getAddress(memberResponseVo.getId());
+//            System.out.println("异步任务1：查询收获地址完成：" + address);
             confirmVo.setMemberAddressVos(address);
         }, threadPoolExecutor);
 
@@ -135,6 +136,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
             //2、远程查询购物车所有选中的购物项
             List<OrderItemVo> currentCartItems = cartFeignService.getCurrentCartItems();
+//            System.out.println("异步任务2：查询购物车中的商品完成：" + currentCartItems);
             confirmVo.setItems(currentCartItems);
             //feign在远程调用之前要构造请求，调用很多的拦截器
         }, threadPoolExecutor).thenRunAsync(() -> {
@@ -146,6 +148,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
             //远程查询商品库存信息
             R skuHasStock = wmsFeignService.getSkuHasStock(skuIds);
+//            System.out.println("异步任务2：查询商品库存信息完成：" + skuHasStock);
             List<SkuStockVo> skuStockVos = skuHasStock.getData("data", new TypeReference<List<SkuStockVo>>() {});
 
             if (skuStockVos != null && skuStockVos.size() > 0) {

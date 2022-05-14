@@ -125,16 +125,21 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         return null;
     }
 
+    /**
+     * 社交用户登录
+     */
     @Override
     public MemberEntity socialLogin(SocialUser socialUser) throws Exception {
-
         //具有登录和注册逻辑
         String uid = socialUser.getUid();
 
         //1、判断当前社交用户是否已经登录过系统
         MemberEntity memberEntity = this.baseMapper.selectOne(new QueryWrapper<MemberEntity>().eq("social_uid", uid));
 
+        System.out.println("当前用户的social_id: " + uid);
+
         if (memberEntity != null) {
+            System.out.println("已经登陆过");
             //这个用户已经注册过
             //更新用户的访问令牌的时间和access_token
             MemberEntity update = new MemberEntity();
@@ -147,6 +152,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
             memberEntity.setExpiresIn(socialUser.getExpires_in());
             return memberEntity;
         } else {
+            System.out.println("没有登录过，注册新用户");
             //2、没有查到当前社交用户对应的记录我们就需要注册一个
             MemberEntity register = new MemberEntity();
             //3、查询当前社交用户的社交账号信息（昵称、性别等）
@@ -155,8 +161,10 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
             HttpResponse response = HttpUtils.doGet("https://gitee.com", "/api/v5/user", "get", new HashMap<String, String>(), query);
 
             if (response.getStatusLine().getStatusCode() == 200) {
+                System.out.println("member response: " + response);
                 //查询成功
                 String json = EntityUtils.toString(response.getEntity());
+                System.out.println("member json: " + json);
                 JSONObject jsonObject = JSON.parseObject(json);
                 String name = jsonObject.getString("name");
                 String gender = jsonObject.getString("gender");
