@@ -1,29 +1,19 @@
 package com.mabiao.mall.coupon.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-//import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.mabiao.mall.coupon.entity.SeckillPromotionEntity;
-import com.mabiao.mall.coupon.service.SeckillPromotionService;
 import com.mabiao.common.utils.PageUtils;
 import com.mabiao.common.utils.R;
+import com.mabiao.mall.coupon.entity.SeckillPromotionEntity;
+import com.mabiao.mall.coupon.service.SeckillPromotionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Map;
 
 
 /**
  * 秒杀活动
- *
- * @author mabiao
- * @email mabiao0408@gmail.com
- * @date 2021-12-27 10:23:23
  */
 @RestController
 @RequestMapping("coupon/seckillpromotion")
@@ -60,6 +50,8 @@ public class SeckillPromotionController {
     @RequestMapping("/save")
     //@RequiresPermissions("coupon:seckillpromotion:save")
     public R save(@RequestBody SeckillPromotionEntity seckillPromotion){
+        seckillPromotion.setUserId(1L);
+        seckillPromotion.setCreateTime(new Date());
 		seckillPromotionService.save(seckillPromotion);
 
         return R.ok();

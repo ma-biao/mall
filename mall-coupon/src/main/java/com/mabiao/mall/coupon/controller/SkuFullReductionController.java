@@ -1,26 +1,19 @@
 package com.mabiao.mall.coupon.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-//import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.mabiao.common.to.SkuReductionTo;
+import com.mabiao.common.utils.PageUtils;
+import com.mabiao.common.utils.R;
+import com.mabiao.mall.coupon.entity.SkuFullReductionEntity;
+import com.mabiao.mall.coupon.service.SkuFullReductionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.mabiao.mall.coupon.entity.SkuFullReductionEntity;
-import com.mabiao.mall.coupon.service.SkuFullReductionService;
-import com.mabiao.common.utils.PageUtils;
-import com.mabiao.common.utils.R;
-
+import java.util.Arrays;
+import java.util.Map;
 
 
 /**
  * 商品满减信息
- *
- * @author mabiao
- * @email mabiao0408@gmail.com
- * @date 2021-12-27 10:23:23
  */
 @RestController
 @RequestMapping("coupon/skufullreduction")
@@ -30,7 +23,9 @@ public class SkuFullReductionController {
 
     @PostMapping("/saveinfo")
     public R saveInfo(@RequestBody SkuReductionTo skuReductionTo){
+
         skuFullReductionService.saveSkuReduction(skuReductionTo);
+
         return R.ok();
     }
 

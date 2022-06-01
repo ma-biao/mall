@@ -1,0 +1,22 @@
+server:
+  port: 25000
+
+spring:
+  application:
+    name: mall-seckill
+
+  redis:
+    host: 10.141.19.123
+    port: 6379
+
+  #配置异步任务线程池
+  task:
+    execution:
+      pool:
+        core-size: 5
+        max-size: 50
+
+  session:
+    store-type: redis
+
+

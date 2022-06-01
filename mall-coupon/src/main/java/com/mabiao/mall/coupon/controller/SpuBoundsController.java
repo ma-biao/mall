@@ -1,25 +1,18 @@
 package com.mabiao.mall.coupon.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-//import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.mabiao.common.utils.PageUtils;
+import com.mabiao.common.utils.R;
+import com.mabiao.mall.coupon.entity.SpuBoundsEntity;
+import com.mabiao.mall.coupon.service.SpuBoundsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.mabiao.mall.coupon.entity.SpuBoundsEntity;
-import com.mabiao.mall.coupon.service.SpuBoundsService;
-import com.mabiao.common.utils.PageUtils;
-import com.mabiao.common.utils.R;
-
+import java.util.Arrays;
+import java.util.Map;
 
 
 /**
  * 商品spu积分设置
- *
- * @author mabiao
- * @email mabiao0408@gmail.com
- * @date 2021-12-27 10:23:23
  */
 @RestController
 @RequestMapping("coupon/spubounds")
@@ -53,7 +46,7 @@ public class SpuBoundsController {
     /**
      * 保存
      */
-    @PostMapping("/save")
+    @RequestMapping("/save")
     //@RequiresPermissions("coupon:spubounds:save")
     public R save(@RequestBody SpuBoundsEntity spuBounds){
 		spuBoundsService.save(spuBounds);
