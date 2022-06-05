@@ -1,6 +1,7 @@
 package com.mabiao.mall.product.web;
 
 
+import com.mabiao.mall.product.aop.LogAnnotation;
 import com.mabiao.mall.product.entity.CategoryEntity;
 import com.mabiao.mall.product.service.CategoryService;
 import com.mabiao.mall.product.vo.Catelog2Vo;
@@ -31,6 +32,7 @@ public class IndexController {
     @Autowired
     StringRedisTemplate stringRedisTemplate;
 
+    @LogAnnotation(module="首页", operator="获取首页信息")
     @GetMapping(value = {"/", "index.html"})
     public String indexPage(Model model){
 

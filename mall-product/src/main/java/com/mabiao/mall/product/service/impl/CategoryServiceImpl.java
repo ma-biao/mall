@@ -2,6 +2,7 @@ package com.mabiao.mall.product.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.mabiao.mall.product.aop.LogAnnotation;
 import com.mabiao.mall.product.service.CategoryBrandRelationService;
 import com.mabiao.mall.product.vo.Catelog2Vo;
 import org.redisson.api.RLock;
@@ -147,6 +148,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      * @return
      */
     // 代表当前方法的结果需要缓存，如果缓存中有，方法不用调用。如果缓存中没有，会调用方法，最后将方法的结果放入缓存。
+    @LogAnnotation(module = "一级目录", operator = "获取一级目录parent_cid")
     @Cacheable(value = {"category"},key = "#root.method.name",sync = true)
     @Override
     public List<CategoryEntity> getLevel1Categorys() {
@@ -154,11 +156,15 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return baseMapper.selectList(new QueryWrapper<CategoryEntity>().eq("parent_cid", 0));
     }
 
-
+    /**
+     * 每次调用需要缓存功能的方法时，Spring 会检查指定参数的指定目标方法是否已经被调用过，
+     * 如果有就直接从缓存中获取方法调用后的结果，如果没有就调用方法并缓存结果后返回给用户。下次调用直接从缓存中获取。
+     */
+    @LogAnnotation(module = "首页菜单", operator = "获取菜单Json")
     @Cacheable(value = "category",key = "#root.methodName")
     @Override
     public Map<String, List<Catelog2Vo>> getCatalogJson() {
-        System.out.println("查询了数据库");
+        System.out.println("查询了数据库getCatalogJson()");
 
         //将数据库的多次查询变为一次
         List<CategoryEntity> selectList = this.baseMapper.selectList(null);
@@ -206,7 +212,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     //2)、lettuce的bug导致netty堆外内存溢出   可设置：-Dio.netty.maxDirectMemory
     //解决方案：不能直接使用-Dio.netty.maxDirectMemory去调大堆外内存
     //1)、升级lettuce客户端。      2）、切换使用jedis
-    // @Override
+//    @LogAnnotation(module = "首页菜单", operator = "获取菜单Json")
+//    @Cacheable(value = "category",key = "#root.methodName")
+//    @Override
     public Map<String, List<Catelog2Vo>> getCatalogJson2() {
         //给缓存中放json字符串，拿出的json字符串，反序列为能用的对象
 
