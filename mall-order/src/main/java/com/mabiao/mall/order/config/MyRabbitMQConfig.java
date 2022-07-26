@@ -37,7 +37,7 @@ public class MyRabbitMQConfig {
     }
 
     /**
-     * 普通队列
+     * 订单取消队列
      */
     @Bean
     public Queue orderReleaseQueue() {
@@ -48,7 +48,7 @@ public class MyRabbitMQConfig {
     }
 
     /**
-     * TopicExchange
+     * 订单事件交换机
      */
     @Bean
     public Exchange orderEventExchange() {
@@ -62,7 +62,10 @@ public class MyRabbitMQConfig {
 
     }
 
-
+    /**
+     * 队列与交换机绑定：创建订单队列 -- [订单交换机] -- 死信队列
+     * 创建订单：order.create.order -- [order-event-exchange] -- order.delay.queue
+     */
     @Bean
     public Binding orderCreateBinding() {
         /*
@@ -79,6 +82,11 @@ public class MyRabbitMQConfig {
                 null);
     }
 
+    /**
+     * 队列与交换机绑定：订单取消 -- [订单交换机] -- 订单取消队列
+     * 取消订单：order.release.order -- [order-event-exchange] -- order.release.order.queue
+     * @return
+     */
     @Bean
     public Binding orderReleaseBinding() {
 

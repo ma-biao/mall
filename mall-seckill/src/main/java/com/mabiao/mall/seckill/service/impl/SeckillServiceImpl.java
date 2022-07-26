@@ -146,6 +146,7 @@ public class SeckillServiceImpl implements SeckillService {
                     // 使用库存作为分布式信号量
                     RSemaphore semaphore = redissonClient.getSemaphore(SKU_STOCK_SEMAPHORE + token);
                     // 商品可以秒杀的数量作为信号量
+                    // trySetPermits尝试设置许可数量。
                     semaphore.trySetPermits(seckillSkuVo.getSeckillCount());
                 }
             });
@@ -281,7 +282,9 @@ public class SeckillServiceImpl implements SeckillService {
                     if (aBoolean) {
                         //占位成功说明从来没有买过,分布式锁(获取信号量-1)
                         RSemaphore semaphore = redissonClient.getSemaphore(SKU_STOCK_SEMAPHORE + randomCode);
-                        //TODO 秒杀成功，快速下单
+                        /* 秒杀成功，快速下单 */
+                        // boolean tryAcquire(int permits, long waitTime, TimeUnit unit)
+                        // 尝试获取定义数量的permits。如果获取不到，就一直等待，直到获取到指定数量的permits。最长等待waitTime时间。
                         boolean semaphoreCount = semaphore.tryAcquire(num, 100, TimeUnit.MILLISECONDS);
                         //保证Redis中还有商品库存
                         if (semaphoreCount) {
